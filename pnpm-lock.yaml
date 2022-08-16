@@ -3,6 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@antfu/eslint-config': ^0.26.1
   '@iconify-json/carbon': ^1.1.7
+  '@types/fs-extra': ^9.0.13
   '@types/markdown-it-link-attributes': ^3.0.1
   '@types/node': ^18.7.6
   '@types/nprogress': ^0.2.0
@@ -10,7 +11,10 @@ specifiers:
   '@vitejs/plugin-vue': ^3.0.3
   '@vueuse/core': ^9.1.0
   '@vueuse/head': ^0.7.9
+  dayjs: ^1.11.5
   eslint: ^8.22.0
+  fs-extra: ^10.1.0
+  gray-matter: ^4.0.3
   markdown-it-link-attributes: ^4.0.1
   markdown-it-shiki: ^0.5.1
   nprogress: ^0.2.0
@@ -32,6 +36,7 @@ specifiers:
 dependencies:
   '@vueuse/core': 9.1.0_vue@3.2.37
   '@vueuse/head': 0.7.9_vue@3.2.37
+  dayjs: 1.11.5
   nprogress: 0.2.0
   vue: 3.2.37
   vue-router: 4.1.3_vue@3.2.37
@@ -39,12 +44,15 @@ dependencies:
 devDependencies:
   '@antfu/eslint-config': 0.26.1_4rv7y5c6xz3vfxwhbrcxxi73bq
   '@iconify-json/carbon': 1.1.7
+  '@types/fs-extra': 9.0.13
   '@types/markdown-it-link-attributes': 3.0.1
   '@types/node': 18.7.6
   '@types/nprogress': 0.2.0
   '@unocss/reset': 0.45.7
   '@vitejs/plugin-vue': 3.0.3_vite@3.0.8+vue@3.2.37
   eslint: 8.22.0
+  fs-extra: 10.1.0
+  gray-matter: 4.0.3
   markdown-it-link-attributes: 4.0.1
   markdown-it-shiki: 0.5.1
   shiki: 0.11.1
@@ -469,6 +477,12 @@ packages:
     resolution: {integrity: sha512-9AonUzyTjXXhEOa0DnqpzZi6VHlqKMswga9EXjpXnnqxwLtdvPPtlO8evrI5D9S6asFRCQ6v+wpiUKbw+vKqyg==}
     dependencies:
       '@types/ms': 0.7.31
+    dev: true
+
+  /@types/fs-extra/9.0.13:
+    resolution: {integrity: sha512-nEnwB++1u5lVDM2UI4c1+5R+FYaKfaAzS4OococimjVm3nQw3TuzH5UNsocrcTBbhnerblyHj4A49qXbIiZdpA==}
+    dependencies:
+      '@types/node': 18.7.6
     dev: true
 
   /@types/json-schema/7.0.11:
@@ -1399,6 +1413,10 @@ packages:
       whatwg-mimetype: 3.0.0
       whatwg-url: 11.0.0
     dev: true
+
+  /dayjs/1.11.5:
+    resolution: {integrity: sha512-CAdX5Q3YW3Gclyo5Vpqkgpj8fSdLQcRuzfX6mC6Phy0nfJ0eGYOeS7m4mt2plDWLAtA4TqTakvbboHvUxfe4iA==}
+    dev: false
 
   /debug/2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}

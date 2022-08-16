@@ -1,15 +1,6 @@
 <template>
-  <nav text-xl mt-6 inline-flex gap-2>
-    <button icon-btn @click="toggleDark()">
-      <div dark:i-carbon-moon i-carbon-sun />
-    </button>
-
-    <a
-      icon-btn i-carbon-logo-github
-      rel="noreferrer"
-      href="https://github.com/danielzhang183/vite-lite-starter"
-      target="_blank"
-      title="GitHub"
-    />
-  </nav>
+  <div class="mt-10 mb-6 prose m-auto opacity-50 flex">
+    <span class="text-sm"><a target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" style="color:inherit">CC BY-NC-SA 4.0</a> 2021-PRESENT © Dylan Zhang</span>
+    <div class="flex-auto" />
+  </div>
 </template>

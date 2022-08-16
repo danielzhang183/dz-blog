@@ -1,5 +1,6 @@
 ---
 title: About
+plum: true
 ---
 
 <div class="text-center">

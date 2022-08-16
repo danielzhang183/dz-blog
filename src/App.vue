@@ -1,5 +1,18 @@
+<script setup lang="ts">
+useHead({
+  meta: [
+    { property: 'og:title', content: 'Anthony Fu' },
+    { property: 'og:image', content: 'https://antfu.me/avatar.png' },
+    { name: 'description', content: 'Anthony Fu\'s Portfolio' },
+    { name: 'twitter:card', content: 'summary' },
+    { name: 'twitter:creator', content: '@antfu7' },
+  ],
+})
+</script>
+
 <template>
-  <main font-sans p="x-4 y-10" text="center gray-700 dark:gray-200">
+  <NavBar />
+  <main class="px-7 py-10">
     <router-view />
     <Footer />
   </main>
