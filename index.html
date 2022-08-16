@@ -4,15 +4,15 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite Lite Starter</title>
+    <title>Dylan Zhang</title>
     <meta name="description" content="Opinionated Vite Starter Template">
   </head>
-  <body>
+  <body class="font-sans text-gray-700 dark:text-gray-200">
     <div id="app"></div>
     <script>
       (function () {
         const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
-        const setting = localStorage.getItem('color-schema') || 'auto'
+        const setting = localStorage.getItem('vueuse-color-scheme') || 'auto'
         if (setting === 'dark' || (prefersDark && setting !== 'light'))
           document.documentElement.classList.toggle('dark', true)
       })()

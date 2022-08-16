@@ -1,5 +1,5 @@
 {
-  "name": "vite-lite-starter",
+  "name": "daniel.me",
   "type": "module",
   "version": "0.0.0",
   "private": true,
@@ -15,15 +15,23 @@
   },
   "dependencies": {
     "@vueuse/core": "^9.1.0",
+    "@vueuse/head": "^0.7.9",
+    "nprogress": "^0.2.0",
     "vue": "^3.2.37",
     "vue-router": "^4.1.3"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.26.1",
     "@iconify-json/carbon": "^1.1.7",
+    "@types/markdown-it-link-attributes": "^3.0.1",
+    "@types/node": "^18.7.6",
+    "@types/nprogress": "^0.2.0",
     "@unocss/reset": "^0.45.7",
     "@vitejs/plugin-vue": "^3.0.3",
     "eslint": "^8.22.0",
+    "markdown-it-link-attributes": "^4.0.1",
+    "markdown-it-shiki": "^0.5.1",
+    "shiki": "^0.11.1",
     "taze": "^0.7.6",
     "typescript": "^4.7.4",
     "unocss": "^0.45.7",
@@ -31,6 +39,9 @@
     "unplugin-vue-components": "^0.22.4",
     "vite": "^3.0.8",
     "vite-plugin-pages": "^0.25.0",
+    "vite-plugin-vue-markdown": "^0.21.1",
+    "vite-ssg": "^0.20.2",
+    "vite-ssg-sitemap": "^0.3.2",
     "vue-tsc": "^0.40.1"
   }
 }
