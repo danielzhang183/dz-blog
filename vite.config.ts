@@ -1,23 +1,29 @@
 import { resolve } from 'path'
-import fs from 'fs-extra'
 import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
+import fs from 'fs-extra'
 import Pages from 'vite-plugin-pages'
-import AutoImport from 'unplugin-auto-import/vite'
+import Inspect from 'vite-plugin-inspect'
+import Icons from 'unplugin-icons/vite'
+import IconsResolver from 'unplugin-icons/resolver'
 import Components from 'unplugin-vue-components/vite'
-import generateSitemap from 'vite-ssg-sitemap'
 import Markdown from 'vite-plugin-vue-markdown'
-import LinkAttributes from 'markdown-it-link-attributes'
-import Unocss from 'unocss/vite'
+import Vue from '@vitejs/plugin-vue'
 import Shiki from 'markdown-it-shiki'
 import matter from 'gray-matter'
+import AutoImport from 'unplugin-auto-import/vite'
+import anchor from 'markdown-it-anchor'
+import LinkAttributes from 'markdown-it-link-attributes'
+import UnoCSS from 'unocss/vite'
+import SVG from 'vite-svg-loader'
+// @ts-expect-error missing types
+import TOC from 'markdown-it-table-of-contents'
+import { slugify } from './scripts/slugify'
 
-// https://vitejs.dev/config/
 export default defineConfig({
   resolve: {
-    alias: {
-      '~/': `${resolve(__dirname, 'src')}/`,
-    },
+    alias: [
+      { find: '~/', replacement: `${resolve(__dirname, 'src')}/` },
+    ],
   },
   optimizeDeps: {
     include: [
@@ -29,12 +35,13 @@ export default defineConfig({
     ],
   },
   plugins: [
-    // https://github.com/antfu/unocss
-    Unocss(),
-    vue({
+    UnoCSS(),
+
+    Vue({
       include: [/\.vue$/, /\.md$/],
+      reactivityTransform: true,
     }),
-    // https://github.com/hannoeru/vite-plugin-pages
+
     Pages({
       extensions: ['vue', 'md'],
       extendRoute(route) {
@@ -49,50 +56,29 @@ export default defineConfig({
         return route
       },
     }),
-    // https://github.com/antfu/unplugin-auto-import
-    AutoImport({
-      // global imports to register
-      imports: [
-        'vue',
-        'vue/macros',
-        'vue-router',
-        '@vueuse/head',
-        '@vueuse/core',
-      ],
-      // Auto import for module exports under directories
-      // by default it only scan one level of modules under the directory
-      dirs: [
-        './src/logics', // only root modules
-      ],
-      // Filepath to generate corresponding .d.ts file.
-      // Defaults to './auto-imports.d.ts' when `typescript` is installed locally.
-      // Set `false` to disable.
-      dts: true,
-      // Auto import inside Vue template
-      // see https://github.com/unjs/unimport/pull/15 and https://github.com/unjs/unimport/pull/72
-      vueTemplate: true,
-    }),
 
-    // https://github.com/antfu/vite-plugin-components
-    Components({
-      // allow auto load markdown components under `./src/components/`
-      extensions: ['vue', 'md'],
-      // allow auto import and register components used in markdown
-      include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
-      dts: true,
-    }),
-    // https://github.com/antfu/vite-plugin-vue-markdown
     Markdown({
-      wrapperClasses: 'prose prose-sm m-auto text-left',
+      wrapperComponent: 'post',
+      wrapperClasses: 'prose m-auto',
       headEnabled: true,
+      markdownItOptions: {
+        quotes: '""\'\'',
+      },
       markdownItSetup(md) {
-        // https://prismjs.com/
         md.use(Shiki, {
           theme: {
             light: 'vitesse-light',
             dark: 'vitesse-dark',
           },
         })
+        md.use(anchor, {
+          slugify,
+          permalink: anchor.permalink.linkInsideHeader({
+            symbol: '#',
+            renderAttrs: () => ({ 'aria-hidden': 'true' }),
+          }),
+        })
+
         md.use(LinkAttributes, {
           matcher: (link: string) => /^https?:\/\//.test(link),
           attrs: {
@@ -100,14 +86,57 @@ export default defineConfig({
             rel: 'noopener',
           },
         })
+
+        md.use(TOC, {
+          includeLevel: [1, 2, 3],
+          slugify,
+        })
       },
+    }),
+
+    AutoImport({
+      imports: [
+        'vue',
+        'vue-router',
+        '@vueuse/core',
+        '@vueuse/head',
+      ],
+    }),
+
+    Components({
+      extensions: ['vue', 'md'],
+      dts: true,
+      include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
+      resolvers: [
+        IconsResolver({
+          componentPrefix: '',
+        }),
+      ],
+    }),
+
+    Inspect(),
+
+    Icons({
+      defaultClass: 'inline',
+      defaultStyle: 'vertical-align: sub;',
+    }),
+
+    SVG({
+      svgo: false,
     }),
   ],
 
-  // https://github.com/antfu/vite-ssg
+  build: {
+    rollupOptions: {
+      onwarn(warning, next) {
+        if (warning.code !== 'UNUSED_EXTERNAL_IMPORT')
+          next(warning)
+      },
+    },
+  },
+
   ssgOptions: {
-    script: 'async',
     formatting: 'minify',
-    onFinished() { generateSitemap() },
+    format: 'cjs',
   },
 })

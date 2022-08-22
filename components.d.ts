@@ -7,6 +7,7 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    FeatherTwitter: typeof import('~icons/feather/twitter')['default']
     Footer: typeof import('./src/components/Footer.vue')['default']
     NavBar: typeof import('./src/components/NavBar.vue')['default']
     Plum: typeof import('./src/components/Plum.vue')['default']
