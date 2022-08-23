@@ -101,6 +101,9 @@ export default defineConfig({
         '@vueuse/core',
         '@vueuse/head',
       ],
+      dirs: [
+        './src/logics',
+      ],
     }),
 
     Components({
